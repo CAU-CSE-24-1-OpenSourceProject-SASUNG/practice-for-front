@@ -1,0 +1,15 @@
+.recent-button {
+    width: 240px;
+    height: 240px;
+    margin: 10px;
+    background-color: #007BFF;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.recent-button:hover {
+    background-color: #0056b3;
+}

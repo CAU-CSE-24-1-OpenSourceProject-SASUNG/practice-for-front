@@ -1,0 +1,61 @@
+.chat-container {
+    padding: 8%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-grow: 1;
+}
+
+.quiz-question, .chat-input {
+    resize: none;
+    width: 100%;
+    padding: 10px;
+}
+
+.chat-input{
+    background-color: white;
+    color: white;
+}
+
+.quiz-question {
+    background-color: #aaaaaa;
+    color: white;
+}
+
+#chatWindow {
+    height:300px;
+    background-color: white;
+    overflow-y: scroll;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #28a745;
+    margin-left: auto;
+}
+.gpt-message {
+    align-self: flex-start;
+    background-color: #007BFF;
+    margin-right: auto;
+}
+.message-text {
+    color: white;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+}
+
+.submit-button {
+    background-color: #28a745;
+    width: 80px;
+    height: 80px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

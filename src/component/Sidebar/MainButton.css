@@ -1,0 +1,18 @@
+.main-button {
+    display: block;
+    background-color: #333333; /* 기본 사이드바 색상과 같음 */
+    align-items: center;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.main-button.active {
+    background-color: #555555; /* 선택된 버튼의 색상 */
+}
+
+.main-button img {
+    width: 100px;
+    height: auto;
+}

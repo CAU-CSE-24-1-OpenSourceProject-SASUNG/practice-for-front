@@ -1,0 +1,24 @@
+.main-page {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.main-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 4%;
+}
+
+.riddle-section{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 4%;
+    height: 90%;
+    max-height: 90%;
+}

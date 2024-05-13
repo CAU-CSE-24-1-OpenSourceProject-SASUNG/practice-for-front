@@ -1,26 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './ChatPage.css';
 import Logo from '../../static/icon/logo.svg';
 
 function ChatPage({ gameId }) {
-//    const sendQuestion = (event) => {
-//        event.preventDefault();
-//        const question = document.getElementById('userQuestion').value;
-//        console.log(question); // 로깅을 위한 예시, 실제로는 서버에 요청을 보낼 수 있습니다.
-//    };
+    const [gameInfo, setGameInfo] = useState({});
 
-    console.log(gameId);
+    useEffect(() => {
+        const fetchGameInfo = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/gameinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ gameId: gameId })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                const gameInfo = await response.json();
+                setGameInfo(gameInfo);
+            } catch (error) {
+                console.error('Failed to fetch gameInfo:', error);
+            }
+        };
+        fetchGameInfo();
+    }, [gameId]);
+
     return (
         <div className="chat-container">
             <div className="quiz-question">
-                {`${gameId} problems ~~~~~~~~~ ~~~~~~~~~~~ `}
+                {`riddle Id : ${gameInfo.riddleId} | game Id : ${gameId} | problem : ${gameInfo.problem}`}
             </div>
             <div className="chat-group">
                 <div id="chatWindow"></div>
                 <div className="input-group">
                     <textarea id="userQuestion" className="chat-input" placeholder="Enter your question here..." rows="4"></textarea>
                     <button className="submit-button" type="submit">
-                        <img class="logo" src={Logo} alt="Logo" />  { }
+                        <img className="logo" src={Logo} alt="Logo" />  { }
                     </button>
                 </div>
             </div>

@@ -3,22 +3,21 @@ import './Sidebar.css';
 import SidebarButton from './SidebarButton';
 import MainButton from './MainButton';
 
-function Sidebar({ setContent, isOpen, setIsOpen }) {
+function Sidebar({gameId, setGameId, isOpen, setIsOpen }) {
     const [showContent, setShowContent] = useState(true); // 컨텐츠 표시 상태 관리
-    const [selectedItem, setSelectedItem] = useState('main');
-    const [recentItems, setRecentItems] = useState([]);
+    const [recentGames, setRecentGames] = useState([]);
 
     useEffect(() => {
-        const fetchRecentItems = async () => {
+        const fetchRecentGames = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/recent');
-                const data = await response.json();
-                setRecentItems(data);
+                const response = await fetch('http://127.0.0.1:5000/recentgames');
+                const recentGames = await response.json();
+                setRecentGames(recentGames);
             } catch (error) {
                 console.error('Failed to fetch recent items:', error);
             }
         };
-        fetchRecentItems();
+        fetchRecentGames();
     }, []);
 
     useEffect(() => {
@@ -42,21 +41,19 @@ function Sidebar({ setContent, isOpen, setIsOpen }) {
             {showContent && (
                 <div className="sidebar-content">
                     <MainButton
-                        item="main"
-                        setItem={setSelectedItem}
-                        isActive={selectedItem === "main"}
-                        setContent={setContent}
+                        gameId={"main"}
+                        setGameId={setGameId}
+                        isActive={gameId === "main"}
                     />
                     <div className="recent-content">
                         <p className="recent-text">Recent</p>
-                        {recentItems.map(item => (
+                        {recentGames.map(item => (
                             <SidebarButton
                                 key={item.id}
-                                label={item.label}
-                                item={item.id}
-                                setItem={setSelectedItem}
-                                isActive={selectedItem === item.id}
-                                setContent={setContent}
+                                title={item.title}
+                                gameId={item.id}
+                                setGameId={setGameId}
+                                isActive={gameId=== item.id}
                             />
                         ))}
                     </div>

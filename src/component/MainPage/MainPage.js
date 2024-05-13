@@ -4,17 +4,22 @@ import RecentButton from './RecentButton';
 import RiddleList from './RiddleList';
 import './MainPage.css';
 
-function MainPage() {
-    const [user, setUser] = useState({ icon: '', nickname: 'Lumare', level: 4 });
+function MainPage( {user, setGameId} ) {
     const [riddles, setRiddles] = useState([]);
 
-
     useEffect(() => {
-        setRiddles([
-            { id: 1, text: 'What has keys but can’t open locks?' },
-            { id: 2, text: 'What has a ring but no finger?' },
-        ]);
+        const fetchRiddleItems = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/riddles');
+                const data = await response.json();
+                setRiddles(data);
+            } catch (error) {
+                console.error('Failed to fetch recent items:', error);
+            }
+        };
+        fetchRiddleItems();
     }, []);
+
 
     return (
         <div className="main-page">
@@ -23,7 +28,11 @@ function MainPage() {
                 <RecentButton />
             </div>
             <div className="riddle-section">
-                <RiddleList  riddles={riddles}/>
+                <RiddleList
+                    user={user}
+                    setGameId={setGameId}
+                    riddles={riddles}
+                />
             </div>
         </div>
     );

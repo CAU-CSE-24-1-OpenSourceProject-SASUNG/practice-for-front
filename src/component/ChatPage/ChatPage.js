@@ -2,17 +2,18 @@ import React from 'react';
 import './ChatPage.css';
 import Logo from '../../static/icon/logo.svg';
 
-function ChatPage({ content }) {
+function ChatPage({ gameId }) {
 //    const sendQuestion = (event) => {
 //        event.preventDefault();
 //        const question = document.getElementById('userQuestion').value;
 //        console.log(question); // 로깅을 위한 예시, 실제로는 서버에 요청을 보낼 수 있습니다.
 //    };
 
+    console.log(gameId);
     return (
         <div className="chat-container">
             <div className="quiz-question">
-                {'problems ~~~~~~~~~ ~~~~~~~~~~~ '}
+                {`${gameId} problems ~~~~~~~~~ ~~~~~~~~~~~ `}
             </div>
             <div className="chat-group">
                 <div id="chatWindow"></div>

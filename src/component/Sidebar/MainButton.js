@@ -2,10 +2,9 @@ import React from 'react';
 import './MainButton.css';
 import Logo from '../../static/icon/logo.svg';
 
-function MainButton({ item, setItem, isActive, setContent }) {
+function MainButton({ gameId, setGameId, isActive}) {
     const handleClick = () => {
-        setContent(item);
-        setItem(item);
+        setGameId(gameId);
     };
 
     return (

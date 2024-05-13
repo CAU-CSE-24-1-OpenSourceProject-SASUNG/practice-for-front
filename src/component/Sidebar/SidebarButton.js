@@ -1,11 +1,10 @@
 import React from 'react';
 import './SidebarButton.css';
 
-function SidebarButton({ label, item, setItem, isActive, setContent }) {
+function SidebarButton({ title, gameId, setGameId, isActive}) {
 
     const handleClick = () => {
-        setContent(item);
-        setItem(item);  // 현재 선택된 item을 상태로 설정
+        setGameId(gameId);
     };
 
     return (
@@ -13,7 +12,7 @@ function SidebarButton({ label, item, setItem, isActive, setContent }) {
             onClick={handleClick}
             className={`menu-button ${isActive ? "active" : ""}`}
         >
-            { label }
+            { title }
         </button>
     );
 }

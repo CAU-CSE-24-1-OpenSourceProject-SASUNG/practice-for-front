@@ -1,14 +1,23 @@
 .menu-button {
-    display: flex;
-    background-color: #333333; /* 기본 사이드바 색상과 같음 */
-    color: white;
+    width: 100%;
+    background-color: var(--sidebar-color);
+    color: var(--main-font-black-color);
+    font-weight: bold;
     border: none;
-    padding: 12px;
-    border-radius: 24px;
+    padding: 14px;
     text-align: left;
     cursor: pointer;
+    box-shadow: inset -5px 0px 4px -5px black;
+    transition: color 0.3s;
+}
+
+.menu-button:hover {
+    color : var(--main-font-color);
+    box-shadow: inset 5px 0px 5px -5px black;
 }
 
 .menu-button.active {
-    background-color: #555555; /* 선택된 버튼의 색상 */
+    background-color: var(--main-bg-color);
+    color : var(--main-font-color);
+    box-shadow: inset 5px 0px 5px -5px black;
 }

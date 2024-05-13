@@ -7,6 +7,22 @@
     box-sizing: border-box;
 }
 
+:root{
+    --main-bg-color: #363538;
+    --main-base-color: #8d8c8a;
+    --main-point-color: #52d6f4;
+    --main-point-base-color: #408697;
+    --main-font-color: #f6f6f6;
+    --main-font-black-color: #333333;
+    --main-lightgrey-color: #f0f0f0;
+    --sidebar-color: #408697;
+    --main-button-color: #408697;
+    --button-hover-color: #333333;
+    --button-hover-point-color: var(--main-point-base-color);
+
+    background-color: var(--main-bg-color);
+}
+
 #root{
     display: flex;
     flex-grow: 1;
@@ -29,12 +45,20 @@ body{
     height: 100%;
 }
 
+
 .main-content {
-    padding: 40px;
-    background-color: #f4f4f4; /* 메인 컨텐츠 배경색 */
+    transition: margin-left 0.5s;
+    margin-left: 200px;
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    background-color: var(--main-bg-color); /* 메인 컨텐츠 배경색 */
+}
+
+.main-content.full{
+    margin-left: 0;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: var(--main-bg-color);
 }
-

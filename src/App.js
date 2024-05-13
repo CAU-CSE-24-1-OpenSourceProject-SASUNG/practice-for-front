@@ -6,11 +6,17 @@ import ChatPage from "./component/ChatPage/ChatPage";
 
 function App() {
     const [content, setContent] = useState('main');
+    const [isOpen, setIsOpen] = useState(true);
 
     return (
         <div className="app">
-            <Sidebar setContent={ setContent } />
-            {(content === 'main') ? <MainPage/> : <ChatPage content={content}/>}
+            <Sidebar setContent={ setContent } isOpen={isOpen} setIsOpen={ setIsOpen } />
+            <div className={`main-content ${isOpen ? "" : "full"}`}>
+                {(content === 'main') ?
+                    <MainPage/> :
+                    <ChatPage content={content}/>
+                }
+            </div>
         </div>
     );
 }

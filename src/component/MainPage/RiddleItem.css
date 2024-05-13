@@ -1,12 +1,18 @@
 .riddle-item {
+    flex-grow: 1;
     padding: 10px;
     background-color: white;
     margin-bottom: 10px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    transition: background-color 0.3s;
+    box-shadow: 0 0 5px -5px black;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.riddle-item:hover .riddle-text {
+    color: var(--main-font-color);
 }
 
 .riddle-item:hover {
-    background-color: #e0e0e0;
+    background-color: var(--button-hover-point-color);
 }

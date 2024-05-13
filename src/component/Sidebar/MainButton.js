@@ -13,7 +13,7 @@ function MainButton({ item, setItem, isActive, setContent }) {
             onClick={handleClick}
             className={`main-button ${isActive ? 'active' : ''}`}
         >
-            <img src={Logo} alt="Logo" />  { }
+            <img className="logo" src={Logo} alt="Logo" />  { }
         </button>
     );
 }

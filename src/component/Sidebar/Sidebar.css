@@ -6,19 +6,13 @@
     flex-direction: column;
     width: 200px;
     height: 100%;
-    background-color: #333; /* 사이드바 색상 */
+    background-color: var(--sidebar-color); /* 사이드바 색상 */
     transition: width 0.5s;
+    box-shadow: inset -5px 0px 4px -5px black;
 }
 
 .sidebar.closed {
     width: 0;
-}
-
-.sidebar-content {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
 }
 
 .toggle-button {
@@ -28,21 +22,39 @@
     transition: left 0.5s;  /* 위치 변화에 애니메이션 효과를 줍니다 */
     width: 6px;
     height: 30px;
-    background-color: #666;
     border-radius: 10px;
     cursor: pointer;
+    box-shadow: inset 0px 0px 5px -3px black;
 }
 
 .sidebar.closed .toggle-button {
-    left: 10px; /* 사이드바가 닫혔을 때 버튼을 오른쪽 끝으로 이동 */
+    background-color: var(--main-base-color);
+    left: 10px;
 }
 
 .sidebar.open .toggle-button {
-    left: 210px; /* 사이드바가 열렸을 때 버튼 위치 조정 (사이드바 너비에 따라 조정 필요) */
+    background-color: var(--main-button-color);
+    left: 210px;
+}
+
+.sidebar-content {
+    color: var(--main-font-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recent-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .recent-text {
+    width: 100%;
     font-size: 14px;
+    color: var(--main-font-black-color);
     margin-top: 10px;
     margin-left: 5px;
     margin-bottom: 10px;

@@ -1,18 +1,34 @@
 .main-button {
     display: block;
-    background-color: #333333; /* 기본 사이드바 색상과 같음 */
+    background-color: var(--main-button-color);
     align-items: center;
     border: none;
-    padding: 10px;
-    width: 100%;
+    margin: 5%;
+    width: 80%;
+    height: 160px;
+    border-radius: 100px;
+    box-shadow: 0 0 10px -5px;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.main-button img{
+    filter: invert(8%);
+}
+
+.main-button.active img{
+    filter: invert(90%);
 }
 
 .main-button.active {
-    background-color: #555555; /* 선택된 버튼의 색상 */
+    background-color: var(--main-bg-color);
+}
+
+.main-button:hover img {
+    filter: invert(95%);
 }
 
 .main-button img {
-    width: 100px;
+    width: 128px;
     height: auto;
 }

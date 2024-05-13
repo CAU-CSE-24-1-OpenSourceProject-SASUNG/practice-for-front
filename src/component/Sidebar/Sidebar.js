@@ -3,8 +3,7 @@ import './Sidebar.css';
 import SidebarButton from './SidebarButton';
 import MainButton from './MainButton';
 
-function Sidebar({ setContent }) {
-    const [isOpen, setIsOpen] = useState(true);
+function Sidebar({ setContent, isOpen, setIsOpen }) {
     const [showContent, setShowContent] = useState(true); // 컨텐츠 표시 상태 관리
     const [selectedItem, setSelectedItem] = useState('main');
     const [recentItems, setRecentItems] = useState([]);
@@ -48,17 +47,19 @@ function Sidebar({ setContent }) {
                         isActive={selectedItem === "main"}
                         setContent={setContent}
                     />
-                    <p className="recent-text">Recent</p>
-                    {recentItems.map(item => (
-                        <SidebarButton
-                            key={item.id}
-                            label={item.label}
-                            item={item.id}
-                            setItem={setSelectedItem}
-                            isActive={selectedItem === item.id}
-                            setContent={setContent}
-                        />
-                    ))}
+                    <div className="recent-content">
+                        <p className="recent-text">Recent</p>
+                        {recentItems.map(item => (
+                            <SidebarButton
+                                key={item.id}
+                                label={item.label}
+                                item={item.id}
+                                setItem={setSelectedItem}
+                                isActive={selectedItem === item.id}
+                                setContent={setContent}
+                            />
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

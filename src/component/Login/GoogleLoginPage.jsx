@@ -2,10 +2,12 @@ import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 import React from 'react'
 
-export const GoogleLoginPage = () => {
+export const GoogleLoginPage = ( { setIsLogin, setUser } ) => {
     const loginHandle = (response) => {
         console.log(response)
         const decode_token = jwtDecode(response.credential) //token decode
+        setUser(decode_token)
+        setIsLogin(true);
         console.log(decode_token)
     }
     return (

@@ -11,3 +11,10 @@ root.render(
         </GoogleOAuthProvider>
     </React.StrictMode>
 );
+
+
+//<React.StrictMode>
+//    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
+//        <App />
+//    </GoogleOAuthProvider>
+//</React.StrictMode>

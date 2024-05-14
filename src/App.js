@@ -14,7 +14,7 @@ function App() {
     //TODO: 로그인 boolean 체크 및 서버로 jwt 토큰 확인으로 변경할 것
     return (
         <div className="app">
-            {(isLogin === false) ?
+            {(isLogin === true) ?
                 <GoogleLoginPage setIsLogin={ setIsLogin } setUser={ setUser }/> :
                 <div className="app">
                     <Sidebar

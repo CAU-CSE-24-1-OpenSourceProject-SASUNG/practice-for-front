@@ -1,8 +1,8 @@
 import { GoogleLogin } from '@react-oauth/google'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import React from 'react'
 
-export const GoogleLoginBtn = () => {
+export const GoogleLoginPage = () => {
     const loginHandle = (response) => {
         console.log(response)
         const decode_token = jwtDecode(response.credential) //token decode
@@ -15,9 +15,12 @@ export const GoogleLoginBtn = () => {
                 onError={() => {
                     console.log("Login Failed");
                 }}
+                text="continue_with"
                 width={"500px"}
+                useOneTap='true'
             />
+
         </div>
     )
 }
-export default GoogleLoginBtn
+export default GoogleLoginPage

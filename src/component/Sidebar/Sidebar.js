@@ -10,7 +10,6 @@ function Sidebar({JWT, userInfo, gameId, setGameId, isOpen, setIsOpen }) {
     useEffect(() => {
         const fetchRecentGames = async () => {
             try {
-                //const response = await fetch('http://127.0.0.1:5000/recentgames');
                 const response = await fetch('http://127.0.0.1:8000/recentgames', {
                     method: "GET",
                     headers: {

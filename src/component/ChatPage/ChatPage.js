@@ -12,6 +12,30 @@ function ChatPage({JWT, gameId }) {
     const [query, setQuery] = useState("");
     const [queries, setQueries] = useState([]);
 
+    useEffect(() => {
+        const fetchGameInfo = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/gameinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${JWT}`
+                    },
+                    body: JSON.stringify({ gameId: gameId })
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                const gameInfo = await response.json();
+                setGameInfo(gameInfo);
+                setQueries(gameInfo.slice(1));
+            } catch (error) {
+                console.error('Failed to fetch gameInfo:', error);
+            }
+        };
+        fetchGameInfo();
+    }, [gameId]);
+
     //쿼리 set
     const handleInputChange = (e) => {
         setQuery(e.target.value);
@@ -52,29 +76,6 @@ function ChatPage({JWT, gameId }) {
         }
     };
 
-    useEffect(() => {
-        const fetchGameInfo = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:5000/gameinfo', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${JWT}`
-                    },
-                    body: JSON.stringify({ gameId: gameId })
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok.');
-                }
-                const gameInfo = await response.json();
-                setGameInfo(gameInfo);
-                setQueries(gameInfo.slice(1));
-            } catch (error) {
-                console.error('Failed to fetch gameInfo:', error);
-            }
-        };
-        fetchGameInfo();
-    }, [gameId]);
 
     return (
         <div className="chat-container">

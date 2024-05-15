@@ -15,7 +15,7 @@ export const GoogleLoginPage = ( { setIsLogin, setUserInfo, setJWT } ) => {
             exp: decode_token.exp
         }
 
-        axios.post("http://localhost:8000/user/login", data,
+        axios.post("https://newturtles.newpotatoes.org/api/user/login", data,
             {
                 headers: {
                     'Content-Type': 'application/json'

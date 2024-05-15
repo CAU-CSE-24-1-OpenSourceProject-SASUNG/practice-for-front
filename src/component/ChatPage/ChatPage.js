@@ -15,7 +15,7 @@ function ChatPage({JWT, gameId }) {
     useEffect(() => {
         const fetchGameInfo = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/gameinfo', {
+                const response = await fetch('https://newturtles.newpotatoes.org/api/gameinfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

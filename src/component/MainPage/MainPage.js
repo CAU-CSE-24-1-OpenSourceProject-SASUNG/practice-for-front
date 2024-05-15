@@ -10,7 +10,7 @@ function MainPage( {JWT, userInfo, setGameId} ) {
     useEffect(() => {
         const fetchRiddleItems = async () => {
             try {
-                const response = await fetch('http://localhost:8000/riddles', {
+                const response = await fetch('http://newturtles.newpotatoes.org/api/riddles', {
                     method: "GET",
                     headers: {
                         'Authorization': `Bearer ${JWT}`

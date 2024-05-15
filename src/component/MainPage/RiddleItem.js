@@ -5,7 +5,7 @@ function RiddleItem({ JWT, userInfo, setGameId, riddle }) {
 
     const handleClick = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/newgame', {
+            const response = await fetch('http://newturtles.newpotatoes.org/newgame', {
                 method: 'POST',
                 headers: {
                     'Authorization' : `Bearer ${JWT}`,

@@ -4,13 +4,18 @@ import RecentButton from './RecentButton';
 import RiddleList from './RiddleList';
 import './MainPage.css';
 
-function MainPage( {user, setGameId} ) {
+function MainPage( {JWT, userInfo, setGameId} ) {
     const [riddles, setRiddles] = useState([]);
 
     useEffect(() => {
         const fetchRiddleItems = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/riddles');
+                const response = await fetch('http://localhost:8000/riddles', {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${JWT}`
+                    }
+                });
                 const data = await response.json();
                 setRiddles(data);
             } catch (error) {
@@ -24,12 +29,13 @@ function MainPage( {user, setGameId} ) {
     return (
         <div className="main-page">
             <div className="main-center">
-                <UserInfo user={user} />
+                <UserInfo userInfo={userInfo} />
                 <RecentButton />
             </div>
             <div className="riddle-section">
                 <RiddleList
-                    user={user}
+                    JWT={JWT}
+                    userInfo={userInfo}
                     setGameId={setGameId}
                     riddles={riddles}
                 />

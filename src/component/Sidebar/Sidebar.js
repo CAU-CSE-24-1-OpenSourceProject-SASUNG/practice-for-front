@@ -3,14 +3,20 @@ import './Sidebar.css';
 import SidebarButton from './SidebarButton';
 import MainButton from './MainButton';
 
-function Sidebar({gameId, setGameId, isOpen, setIsOpen }) {
+function Sidebar({JWT, userInfo, gameId, setGameId, isOpen, setIsOpen }) {
     const [showContent, setShowContent] = useState(true); // 컨텐츠 표시 상태 관리
     const [recentGames, setRecentGames] = useState([]);
 
     useEffect(() => {
         const fetchRecentGames = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/recentgames');
+                //const response = await fetch('http://127.0.0.1:5000/recentgames');
+                const response = await fetch('http://127.0.0.1:8000/recentgames', {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${JWT}`
+                    }
+                });
                 const recentGames = await response.json();
                 setRecentGames(recentGames);
             } catch (error) {
@@ -49,11 +55,11 @@ function Sidebar({gameId, setGameId, isOpen, setIsOpen }) {
                         <p className="recent-text">Recent</p>
                         {recentGames.map(item => (
                             <SidebarButton
-                                key={item.id}
-                                title={item.title}
-                                gameId={item.id}
+                                key={item.gameId}
+                                title={item.gameTitle}
+                                gameId={item.gameId}
                                 setGameId={setGameId}
-                                isActive={gameId=== item.id}
+                                isActive={gameId=== item.gameId}
                             />
                         ))}
                     </div>

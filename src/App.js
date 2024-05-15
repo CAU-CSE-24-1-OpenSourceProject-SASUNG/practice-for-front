@@ -9,16 +9,22 @@ function App() {
     const [gameId, setGameId] = useState('main');
     const [isOpen, setIsOpen] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
-    const [user, setUser] = useState({ icon: '', nickname: 'Lumare', level: 4 });
+    const [JWT, setJWT] = useState();
+    const [userInfo, setUserInfo] = useState(
+        {name : "", email : "", picture: "", exp: 1});
 
-    //TODO: 로그인 boolean 체크 및 서버로 jwt 토큰 확인으로 변경할 것
     return (
         <div className="app">
-            {(isLogin === true) ?
-                <GoogleLoginPage setIsLogin={ setIsLogin } setUser={ setUser }/> :
+            {(isLogin === false) ?
+                <GoogleLoginPage
+                    setIsLogin={ setIsLogin }
+                    setUserInfo={ setUserInfo }
+                    setJWT={setJWT}
+                /> :
                 <div className="app">
                     <Sidebar
-                        user={user}
+                        JWT={JWT}
+                        userInfo={userInfo}
                         gameId={ gameId }
                         setGameId={ setGameId }
                         isOpen={isOpen}
@@ -26,8 +32,13 @@ function App() {
                     />
                     <div className={`main-content ${isOpen ? "" : "full"}`}>
                         {(gameId === 'main') ?
-                            <MainPage user={user} setGameId={setGameId}/> :
-                            <ChatPage user={user} gameId={gameId}/>
+                            <MainPage
+                                JWT={JWT}
+                                userInfo={userInfo}
+                                setGameId={setGameId}/> :
+                            <ChatPage
+                                JWT={JWT}
+                                gameId={gameId}/>
                         }
                     </div>
                 </div>

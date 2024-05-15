@@ -1,3 +1,12 @@
+.quiz-problem {
+    padding: 2%;
+    background-color: var(--main-point-base-color);
+    margin-bottom: 20px;
+    color: var(--main-font-black-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
 .chat-container {
     padding: 8%;
     max-width: 100%;
@@ -10,21 +19,11 @@
 .chat-group{
     display: flex;
     flex-direction: column;
-    height: 100%;
+    justify-content: space-between;
+    width: 100%;
+    height: 90%;
     background-color: var(--main-lightgrey-color);
     border-radius: 8px;
-}
-
-#chatWindow {
-    height: 100%;
-    overflow-y: scroll;
-    background-color: var(--main-lightgrey-color);
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* 내부 그림자 추가 */
 }
 
 #userQuestion{
@@ -48,28 +47,6 @@ textarea#userQuestion {
     overflow-y: auto;
 }
 
-.quiz-question {
-    padding: 2%;
-    background-color: var(--main-point-base-color);
-    margin-bottom: 20px;
-    color: var(--main-font-black-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-}
-
-.user-message {
-    align-self: flex-end;
-    background-color: #28a745;
-    margin-left: auto;
-}
-.gpt-message {
-    align-self: flex-start;
-    background-color: #007BFF;
-    margin-right: auto;
-}
-.message-text {
-    color: white;
-}
 
 .input-group {
     display: flex;

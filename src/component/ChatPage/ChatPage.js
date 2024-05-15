@@ -34,7 +34,7 @@ function ChatPage({JWT, gameId }) {
             }
         };
         fetchGameInfo();
-    }, [gameId]);
+    }, [JWT, gameId]);
 
     //쿼리 set
     const handleInputChange = (e) => {

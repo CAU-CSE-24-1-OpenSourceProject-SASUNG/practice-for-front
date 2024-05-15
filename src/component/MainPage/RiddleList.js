@@ -2,7 +2,7 @@ import React from 'react';
 import RiddleItem from './RiddleItem';
 import './RiddleList.css'; // 스타일링을 위한 CSS 파일
 
-function RiddleList({ JWT, userInfo, setGameId, riddles }) {
+function RiddleList({ JWT, userInfo, setGameId, setNewGameId, riddles }) {
     return (
         <div className="riddle-list">
             <h2>Riddles</h2>
@@ -14,6 +14,7 @@ function RiddleList({ JWT, userInfo, setGameId, riddles }) {
                         key={riddle.riddleId}
                         userInfo={userInfo}
                         setGameId={setGameId}
+                        setNewGameId={setNewGameId}
                         riddle={riddle}
                     />
                 )}

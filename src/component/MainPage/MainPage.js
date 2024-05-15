@@ -4,13 +4,13 @@ import RecentButton from './RecentButton';
 import RiddleList from './RiddleList';
 import './MainPage.css';
 
-function MainPage( {JWT, userInfo, setGameId} ) {
+function MainPage( {JWT, userInfo, setGameId, setNewGameId} ) {
     const [riddles, setRiddles] = useState([]);
 
     useEffect(() => {
         const fetchRiddleItems = async () => {
             try {
-                const response = await fetch('http://newturtles.newpotatoes.org/api/riddles', {
+                const response = await fetch('https://newturtles.newpotatoes.org/api/riddles', {
                     method: "GET",
                     headers: {
                         'Authorization': `Bearer ${JWT}`
@@ -23,20 +23,23 @@ function MainPage( {JWT, userInfo, setGameId} ) {
             }
         };
         fetchRiddleItems();
-    }, []);
+    }, [JWT]);
 
 
     return (
         <div className="main-page">
             <div className="main-center">
                 <UserInfo userInfo={userInfo} />
-                <RecentButton />
+                <RecentButton
+                    setGameId={setGameId}
+                />
             </div>
             <div className="riddle-section">
                 <RiddleList
                     JWT={JWT}
                     userInfo={userInfo}
                     setGameId={setGameId}
+                    setNewGameId={setNewGameId}
                     riddles={riddles}
                 />
             </div>

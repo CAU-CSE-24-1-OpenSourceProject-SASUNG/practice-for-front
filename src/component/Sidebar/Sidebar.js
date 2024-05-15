@@ -3,14 +3,14 @@ import './Sidebar.css';
 import SidebarButton from './SidebarButton';
 import MainButton from './MainButton';
 
-function Sidebar({JWT, userInfo, gameId, setGameId, isOpen, setIsOpen }) {
+function Sidebar({JWT, userInfo, newGameId, gameId, setGameId, isOpen, setIsOpen }) {
     const [showContent, setShowContent] = useState(true); // 컨텐츠 표시 상태 관리
     const [recentGames, setRecentGames] = useState([]);
 
     useEffect(() => {
         const fetchRecentGames = async () => {
             try {
-                const response = await fetch('newturtles.newpotatoes.org/recentgames', {
+                const response = await fetch('https://newturtles.newpotatoes.org/api/recentgames', {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${JWT}`
@@ -23,7 +23,7 @@ function Sidebar({JWT, userInfo, gameId, setGameId, isOpen, setIsOpen }) {
             }
         };
         fetchRecentGames();
-    }, []);
+    }, [JWT, newGameId]);
 
     useEffect(() => {
         if (isOpen) {

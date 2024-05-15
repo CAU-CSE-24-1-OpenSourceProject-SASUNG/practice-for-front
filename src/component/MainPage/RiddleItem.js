@@ -1,11 +1,11 @@
 import React from 'react';
 import './RiddleItem.css';
 
-function RiddleItem({ JWT, userInfo, setGameId, riddle }) {
+function RiddleItem({ JWT, userInfo, setGameId, setNewGameId, riddle }) {
 
     const handleClick = async () => {
         try {
-            const response = await fetch('http://newturtles.newpotatoes.org/newgame', {
+            const response = await fetch('https://newturtles.newpotatoes.org/api/newgame', {
                 method: 'POST',
                 headers: {
                     'Authorization' : `Bearer ${JWT}`,
@@ -18,6 +18,7 @@ function RiddleItem({ JWT, userInfo, setGameId, riddle }) {
                 throw new Error('Network response was not ok.');
             }
             const newGameId = await response.json();
+            setNewGameId(newGameId.newGameId);
             setGameId(newGameId.newGameId);
         } catch (error) {
             console.error('Failed to fetch new game ID:', error);

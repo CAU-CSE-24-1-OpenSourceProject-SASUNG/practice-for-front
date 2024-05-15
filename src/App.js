@@ -7,6 +7,7 @@ import { GoogleLoginPage } from './component/Login/GoogleLoginPage';
 
 function App() {
     const [gameId, setGameId] = useState('main');
+    const [newGameId, setNewGameId] = useState('');
     const [isOpen, setIsOpen] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
     const [JWT, setJWT] = useState();
@@ -25,6 +26,7 @@ function App() {
                     <Sidebar
                         JWT={JWT}
                         userInfo={userInfo}
+                        newGameId={newGameId}
                         gameId={ gameId }
                         setGameId={ setGameId }
                         isOpen={isOpen}
@@ -35,7 +37,9 @@ function App() {
                             <MainPage
                                 JWT={JWT}
                                 userInfo={userInfo}
-                                setGameId={setGameId}/> :
+                                setGameId={setGameId}
+                                setNewGameId={setNewGameId}
+                            /> :
                             <ChatPage
                                 JWT={JWT}
                                 gameId={gameId}/>

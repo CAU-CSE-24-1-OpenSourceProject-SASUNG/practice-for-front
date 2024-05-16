@@ -11,6 +11,7 @@ function ChatPage({JWT, gameId }) {
     );
     const [query, setQuery] = useState("");
     const [queries, setQueries] = useState([]);
+    const [canSubmit, setCanSubmit] = useState(true);
 
     useEffect(() => {
         const fetchGameInfo = async () => {
@@ -42,29 +43,35 @@ function ChatPage({JWT, gameId }) {
     };
 
     const fetchGptResponse = async () => {
-        try {
-            const response = await fetch('http://localhost:8000/chat', {
-                method : "POST",
-                headers: {
-                    'Authorization': `Bearer ${JWT}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({gameId: gameId, query: query})
-            });
-            const chatResponse = await response.json();
-            console.log(chatResponse);
-            return chatResponse;
-        } catch (error) {
-            console.error('Failed to fetch recent items:', error);
-        }
+//        try {
+//            const response = await fetch('http://localhost:8000/chat', {
+//                method : "POST",
+//                headers: {
+//                    'Authorization': `Bearer ${JWT}`,
+//                    'Content-Type': 'application/json'
+//                },
+//                body: JSON.stringify({gameId: gameId, query: query})
+//            });
+//            const chatResponse = await response.json();
+//            console.log(chatResponse);
+//            return chatResponse;
+//        } catch (error) {
+//            console.error('Failed to fetch recent items:', error);
+//        }
+        return "response test";
     };
 
     //submit event
     const handleSubmit = async (e) => {
-        e.preventDefault();  // 기본 이벤트를 방지
-        // response가 오고나서 다시 그리도록 고쳐야 할 듯.
-        const newQuery = {query: query, response: await fetchGptResponse()};
+        const inputLength = query.length;
+        if (!canSubmit || inputLength < 1 || inputLength > 200)
+            return;
+        setCanSubmit(false);
+        e.preventDefault();
+        const newQuery = {queryId:query , query: query, response: ""};
         setQueries([...queries, newQuery]);  // 새 쿼리를 추가
+        newQuery.response = await fetchGptResponse();
+        setCanSubmit(true);
         setQuery("");  // 입력 필드 초기화
     };
 
@@ -94,7 +101,12 @@ function ChatPage({JWT, gameId }) {
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                     />
-                    <button className="submit-button" type="submit" onClick={handleSubmit} >
+                    <button
+                        className="submit-button"
+                        type="submit"
+                        onClick={handleSubmit}
+                        disabled={!canSubmit || query.length < 1 || query.length > 200}
+                    >
                         <img className="logo" src={Logo} alt="Logo" />
                     </button>
                 </div>

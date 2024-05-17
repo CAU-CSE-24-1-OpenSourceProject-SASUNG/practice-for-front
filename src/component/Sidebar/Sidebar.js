@@ -10,14 +10,16 @@ function Sidebar({JWT, userInfo, newGameId, gameId, setGameId, isOpen, setIsOpen
     useEffect(() => {
         const fetchRecentGames = async () => {
             try {
-                const response = await fetch('https://newturtles.newpotatoes.org/api/recentgames', {
+                //const response = await fetch('https://newturtles.newpotatoes.org/api/recentgames', {
+                const response = await fetch('http://localhost:8000/recentgames', {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${JWT}`
                     }
                 });
-                const recentGames = await response.json();
-                setRecentGames(recentGames);
+                const recentGamesData = await response.json();
+                setRecentGames(recentGamesData);
+                console.log(recentGamesData);
             } catch (error) {
                 console.error('Failed to fetch recent items:', error);
             }

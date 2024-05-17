@@ -16,13 +16,11 @@ function ChatPage({JWT, gameId }) {
     useEffect(() => {
         const fetchGameInfo = async () => {
             try {
-                const response = await fetch('https://newturtles.newpotatoes.org/api/gameinfo', {
-                    method: 'POST',
+                const response = await fetch(`http://localhost:8000/gameinfo?gameid=${gameId}`, {
+                    method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${JWT}`
                     },
-                    body: JSON.stringify({ gameId: gameId })
                 });
                 if (!response.ok) {
                     throw new Error('Network response was not ok.');
@@ -43,22 +41,21 @@ function ChatPage({JWT, gameId }) {
     };
 
     const fetchGptResponse = async () => {
-//        try {
-//            const response = await fetch('http://localhost:8000/chat', {
-//                method : "POST",
-//                headers: {
-//                    'Authorization': `Bearer ${JWT}`,
-//                    'Content-Type': 'application/json'
-//                },
-//                body: JSON.stringify({gameId: gameId, query: query})
-//            });
-//            const chatResponse = await response.json();
-//            console.log(chatResponse);
-//            return chatResponse;
-//        } catch (error) {
-//            console.error('Failed to fetch recent items:', error);
-//        }
-        return "response test";
+        try {
+            const response = await fetch('http://localhost:8000/chat', {
+                method : "POST",
+                headers: {
+                    'Authorization': `Bearer ${JWT}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({game_id: gameId, query: query})
+            });
+            const chatResponse = await response.json();
+            return chatResponse.response;
+        } catch (error) {
+            console.error('Failed to fetch recent items:', error);
+        }
+        return "Error Response";
     };
 
     //submit event
@@ -70,9 +67,9 @@ function ChatPage({JWT, gameId }) {
         e.preventDefault();
         const newQuery = {queryId:query , query: query, response: ""};
         setQueries([...queries, newQuery]);  // 새 쿼리를 추가
+        setQuery("");  // 입력 필드 초기화
         newQuery.response = await fetchGptResponse();
         setCanSubmit(true);
-        setQuery("");  // 입력 필드 초기화
     };
 
     //enter submit

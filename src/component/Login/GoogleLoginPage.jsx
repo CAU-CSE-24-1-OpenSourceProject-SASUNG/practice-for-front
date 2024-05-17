@@ -1,37 +1,35 @@
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode' //라이브러리 import
 import React from 'react'
-import axios from 'axios'
 import logo from '../../static/icon/logo.svg'; // 로고 파일 경로 수정
 import './GoogleLoginPage.css';
 
 export const GoogleLoginPage = ( { setIsLogin, setUserInfo, setJWT } ) => {
 
-    const loginHandle = (response) => {
+    const loginHandle = async (response) => {
         const decode_token = jwtDecode(response.credential); //token decode
+        console.log(decode_token.email);
+        console.log(decode_token.name);
         const data = {
-            email: decode_token.email,
-            username: decode_token.name,
-            exp: decode_token.exp
+            'email': decode_token.email,
+            'name': decode_token.name
         }
 
-        axios.post("https://newturtles.newpotatoes.org/api/user/login", data,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        )
-            .then(response => {
-                // 성공적인 요청시 response 값을 localStorage에 저장한다.
-                setJWT(response.data.access_token)
-                setUserInfo({name: data.username, email: data.email, picture: decode_token.picture, exp: 4})
-                setIsLogin(true)
-            })
-            .catch(error => {
-                // 실패시 에러 메시지 출력
-                console.log(error)
-            })
+        const fetchedData = await fetch('http://localhost:8000/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!fetchedData.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const fetchedDataJson = await fetchedData.json();
+        setJWT(fetchedDataJson.access_token)
+        setUserInfo({name: data.name, email: data.email, picture: decode_token.picture, exp: 4})
+        setIsLogin(true)
     }
 
     return (

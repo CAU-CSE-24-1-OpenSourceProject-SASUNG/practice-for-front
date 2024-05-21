@@ -1,10 +1,10 @@
 import React from 'react';
 import './SidebarButton.css';
 
-function SidebarButton({ title, gameId, setGameId, isActive}) {
-
+function SidebarButton({ title, gameId, setGameId, isActive, navigate }) {
     const handleClick = () => {
         setGameId(gameId);
+        navigate(`/game/${gameId}`);
     };
 
     return (
@@ -12,7 +12,7 @@ function SidebarButton({ title, gameId, setGameId, isActive}) {
             onClick={handleClick}
             className={`menu-button ${isActive ? "active" : ""}`}
         >
-            { title }
+            {title}
         </button>
     );
 }

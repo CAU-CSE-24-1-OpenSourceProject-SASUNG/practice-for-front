@@ -4,7 +4,7 @@ import RecentButton from './RecentButton';
 import RiddleList from './RiddleList';
 import './MainPage.css';
 
-function MainPage( {JWT, userInfo, setGameId, setNewGameId} ) {
+function MainPage( {JWT, userInfo, setGameId} ) {
     const [riddles, setRiddles] = useState([]);
 
     useEffect(() => {
@@ -40,7 +40,6 @@ function MainPage( {JWT, userInfo, setGameId, setNewGameId} ) {
                     JWT={JWT}
                     userInfo={userInfo}
                     setGameId={setGameId}
-                    setNewGameId={setNewGameId}
                     riddles={riddles}
                 />
             </div>

@@ -1,36 +1,41 @@
-import { GoogleLogin } from '@react-oauth/google'
-import { jwtDecode } from 'jwt-decode' //라이브러리 import
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode'; // 라이브러리 import
 import logo from '../../static/icon/logo.svg'; // 로고 파일 경로 수정
 import './GoogleLoginPage.css';
 
-export const GoogleLoginPage = ( { setIsLogin, setUserInfo, setJWT } ) => {
+export const GoogleLoginPage = ({ setIsLogin, setUserInfo, setJWT }) => {
+    const navigate = useNavigate();
 
     const loginHandle = async (response) => {
-        const decode_token = jwtDecode(response.credential); //token decode
-        console.log(decode_token.email);
-        console.log(decode_token.name);
+        const decode_token = jwtDecode(response.credential); // token decode
         const data = {
-            'email': decode_token.email,
-            'name': decode_token.name
-        }
+            email: decode_token.email,
+            name: decode_token.name
+        };
 
-        const fetchedData = await fetch('http://localhost:8000/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+        try {
+            const fetchedData = await fetch('http://localhost:8000/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-        if (!fetchedData.ok) {
-            throw new Error('Network response was not ok.');
+            if (!fetchedData.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const fetchedDataJson = await fetchedData.json();
+            setJWT(fetchedDataJson.access_token);
+            setUserInfo({ name: data.name, email: data.email, picture: decode_token.picture, exp: 4 });
+            setIsLogin(true);
+            navigate('/main'); // 로그인 성공 시 /main으로 네비게이트
+        } catch (error) {
+            console.error('Login failed:', error);
         }
-        const fetchedDataJson = await fetchedData.json();
-        setJWT(fetchedDataJson.access_token)
-        setUserInfo({name: data.name, email: data.email, picture: decode_token.picture, exp: 4})
-        setIsLogin(true)
-    }
+    };
 
     return (
         <div className="container">
@@ -55,4 +60,4 @@ export const GoogleLoginPage = ( { setIsLogin, setUserInfo, setJWT } ) => {
     );
 };
 
-export default GoogleLoginPage
+export default GoogleLoginPage;

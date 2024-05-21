@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Sidebar.css';
 import SidebarButton from './SidebarButton';
 import MainButton from './MainButton';
 
-function Sidebar({JWT, userInfo, newGameId, gameId, setGameId, isOpen, setIsOpen }) {
+function Sidebar({ JWT, gameId, setGameId, isOpen, setIsOpen }) {
     const [showContent, setShowContent] = useState(true); // 컨텐츠 표시 상태 관리
     const [recentGames, setRecentGames] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchRecentGames = async () => {
-            try {
-                //const response = await fetch('https://newturtles.newpotatoes.org/api/recentgames', {
-                const response = await fetch('http://localhost:8000/recentgames', {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${JWT}`
-                    }
+        const fetchRecentGames = () => {
+            axios.get('http://localhost:8000/recentgames', {
+                headers: {
+                    Authorization: `Bearer ${JWT}`
+                }
+            })
+                .then(response => {
+                    setRecentGames(response.data);
+                })
+                .catch(error => {
+                    console.error('Failed to fetch recent items:', error);
                 });
-                const recentGamesData = await response.json();
-                setRecentGames(recentGamesData);
-                console.log(recentGamesData);
-            } catch (error) {
-                console.error('Failed to fetch recent items:', error);
-            }
         };
         fetchRecentGames();
-    }, [JWT, newGameId]);
+    }, [JWT, gameId]);
 
     useEffect(() => {
         if (isOpen) {
@@ -51,16 +51,18 @@ function Sidebar({JWT, userInfo, newGameId, gameId, setGameId, isOpen, setIsOpen
                         gameId={"main"}
                         setGameId={setGameId}
                         isActive={gameId === "main"}
+                        navigate={navigate}
                     />
+                    <p className="recent-text">Recent</p>
                     <div className="recent-content">
-                        <p className="recent-text">Recent</p>
                         {recentGames.map(item => (
                             <SidebarButton
                                 key={item.gameId}
                                 title={item.gameTitle}
                                 gameId={item.gameId}
                                 setGameId={setGameId}
-                                isActive={gameId=== item.gameId}
+                                isActive={gameId === item.gameId}
+                                navigate={navigate}
                             />
                         ))}
                     </div>

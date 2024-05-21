@@ -1,22 +1,25 @@
 .main-button {
-    display: block;
-    background-color: var(--main-button-color);
+    display: flex;
+    justify-content: center;
     align-items: center;
+    background-color: var(--main-button-color);
     border: none;
     margin: 5%;
-    width: 80%;
-    height: 160px;
-    border-radius: 100px;
+    width: 160px; /* Width and height should be equal for a perfect circle */
+    height: 160px; /* Width and height should be equal for a perfect circle */
+    border-radius: 50%; /* 50% border-radius makes it a circle */
     box-shadow: 0 0 10px -5px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
-.main-button img{
+.main-button img {
+    width: 128px;
+    height: 128px;
     filter: invert(8%);
 }
 
-.main-button.active img{
+.main-button.active img {
     filter: invert(90%);
 }
 
@@ -26,9 +29,4 @@
 
 .main-button:hover img {
     filter: invert(95%);
-}
-
-.main-button img {
-    width: 128px;
-    height: auto;
 }

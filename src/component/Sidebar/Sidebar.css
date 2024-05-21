@@ -9,6 +9,7 @@
     background-color: var(--sidebar-color); /* 사이드바 색상 */
     transition: width 0.5s;
     box-shadow: inset -5px 0px 4px -5px black;
+    overflow: hidden; /* 내부 콘텐츠에 스크롤을 제한 */
 }
 
 .sidebar.closed {
@@ -42,13 +43,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.recent-content{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+    height: 100%;
+    background-color: var(--sidebar-color); /* 사이드바 색상 */
+    box-shadow: inset -5px 0px 4px -5px black;
 }
 
 .recent-text {
@@ -58,4 +55,14 @@
     margin-top: 10px;
     margin-left: 5px;
     margin-bottom: 10px;
+}
+
+.recent-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: calc(100% - 200px); /* MainButton height plus margin */
+    overflow-y: auto; /* recent-content에 스크롤을 설정 */
+    background-color: var(--sidebar-color); /* 스크롤 영역 배경색 */
 }

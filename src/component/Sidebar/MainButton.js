@@ -2,9 +2,10 @@ import React from 'react';
 import './MainButton.css';
 import Logo from '../../static/icon/logo.svg';
 
-function MainButton({ gameId, setGameId, isActive}) {
+function MainButton({ gameId, setGameId, isActive, navigate }) {
     const handleClick = () => {
         setGameId(gameId);
+        navigate('/main');
     };
 
     return (
@@ -12,7 +13,7 @@ function MainButton({ gameId, setGameId, isActive}) {
             onClick={handleClick}
             className={`main-button ${isActive ? 'active' : ''}`}
         >
-            <img className="logo" src={Logo} alt="Logo" />  { }
+            <img className="logo" src={Logo} alt="Logo" />
         </button>
     );
 }

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './component/Sidebar/Sidebar';
-import './App.css';
 import MainPage from "./component/MainPage/MainPage";
 import ChatPage from "./component/ChatPage/ChatPage";
 import { GoogleLoginPage } from './component/Login/GoogleLoginPage';
+import NewRiddlePage from './component/MainPage/NewRiddlePage';
+
+import "./App.css";
 
 function App() {
     const [gameId, setGameId] = useState('main');
+    const [riddles, setRiddles] = useState([]);
     const [isOpen, setIsOpen] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
     const [JWT, setJWT] = useState();
@@ -41,6 +44,8 @@ function App() {
                                         JWT={JWT}
                                         userInfo={userInfo}
                                         setGameId={setGameId}
+                                        riddles={riddles}
+                                        setRiddles={setRiddles}
                                     />
                                 </div>
                             </div>
@@ -64,6 +69,26 @@ function App() {
                                         JWT={JWT}
                                         gameId={gameId}
                                     />
+                                </div>
+                            </div>
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    } />
+                    <Route path="/newriddle" element={
+                        isLogin ? (
+                            <div className="app">
+                                <Sidebar
+                                    JWT={JWT}
+                                    userInfo={userInfo}
+                                    gameId={gameId}
+                                    setGameId={setGameId}
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                />
+                                <div className={`main-content ${isOpen ? "" : "full"}`}>
+                                    <NewRiddlePage
+                                        JWT={JWT} />
                                 </div>
                             </div>
                         ) : (

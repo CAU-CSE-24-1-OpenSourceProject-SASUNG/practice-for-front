@@ -1,0 +1,111 @@
+.new-riddle-page {
+    width: 100%;
+    padding: 2%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.new-riddle-page h2 {
+    margin-bottom: 20px;
+    color: var(--main-lightgrey-color);
+}
+
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.new-input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-input-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--main-lightgrey-color);
+}
+
+
+.progress-sentence{
+    margin-right: 10px;
+}
+
+.new-input-group input, .new-input-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: var(--main-lightgrey-color);
+    color: var(--main-font-black-color);
+}
+
+.new-input-group textarea {
+    resize: vertical;
+    margin-right: 5px;
+}
+
+.progress-sentence input {
+    width: 100%;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.new-input-group.progress-sentences .progress-sentence{
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.qa-pair-groups{
+    display: flex;
+    flex-direction: row;
+}
+
+.new-input-group.qa-pairs .qa-pair {
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.add-button, .create-button {
+    background-color: var(--main-point-base-color);
+    color: var(--main-font-black-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px -3px black;
+    transition: background-color 0.3s;
+    align-self: flex-end;
+}
+
+.add-button:hover, .create-button:hover {
+    background-color: var(--main-point-base-color);
+}
+
+.remove-button{
+    background-color: red;
+    color: var(--main-font-color);
+    padding: 10px 20px;
+    margin-bottom : 10px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 5px -3px black;
+    transition: background-color 0.3s;
+    align-self: flex-end;
+}
+
+.create-button {
+    margin-bottom : 20px;
+    align-self: center;
+}

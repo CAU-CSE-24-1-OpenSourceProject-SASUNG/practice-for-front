@@ -7,6 +7,7 @@
     background-color: var(--main-lightgrey-color);
     box-shadow: 0 0 10px -5px black;
     border-radius: 10px;
+    position: relative; /* + 버튼을 절대 위치로 배치하기 위해 필요 */
 }
 
 .riddle-list h2 {
@@ -27,4 +28,26 @@ hr {
     height: 1px;
     background-color: #ccc;
     margin: 10px 0;
+}
+
+/* + 버튼 스타일 */
+.add-riddle-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--main-button-color);
+    color: white;
+    width: 36px; /* 원형으로 만들기 위해 width와 height를 동일하게 설정 */
+    height: 36px; /* 원형으로 만들기 위해 width와 height를 동일하게 설정 */
+    border-radius: 50%; /* 50% border-radius makes it a circle */
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.add-riddle-button:hover {
+    background-color: var(--button-hover-color);
 }

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './ChatPage.css';
 import Logo from '../../static/icon/logo.svg';
 import ChatWindow from "./ChatWindow";
+import axios from "axios";
 
 function ChatPage({JWT, gameId }) {
     const [gameInfo, setGameInfo] = useState(
@@ -9,28 +10,26 @@ function ChatPage({JWT, gameId }) {
             {gameTitle : 'dummy', problem : 'dummy problem'}
         ]
     );
+    const [newQuery, setNewQuery] = useState({queryId: "",query: "", response: ""});
     const [query, setQuery] = useState("");
     const [queries, setQueries] = useState([]);
     const [canSubmit, setCanSubmit] = useState(true);
 
     useEffect(() => {
         const fetchGameInfo = async () => {
-            try {
-                const response = await fetch(`http://localhost:8000/gameinfo?gameid=${gameId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${JWT}`
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok.');
+            axios.get(`http://localhost:8000/gameinfo`, {
+                params: { gameId: gameId },
+                headers: {
+                    'Authorization': `Bearer ${JWT}`
                 }
-                const gameInfo = await response.json();
-                setGameInfo(gameInfo);
-                setQueries(gameInfo.slice(1));
-            } catch (error) {
+            }).then((response) => {
+                const gameInfo = response.data;
+                const [gameDetails, ...queries] = gameInfo;
+                setGameInfo(gameDetails);
+                setQueries(queries);
+            }).catch((error) => {
                 console.error('Failed to fetch gameInfo:', error);
-            }
+            });
         };
         fetchGameInfo();
     }, [JWT, gameId]);
@@ -40,35 +39,32 @@ function ChatPage({JWT, gameId }) {
         setQuery(e.target.value);
     };
 
-    const fetchGptResponse = async () => {
-        try {
-            const response = await fetch('http://localhost:8000/chat', {
-                method : "POST",
-                headers: {
-                    'Authorization': `Bearer ${JWT}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({game_id: gameId, query: query})
-            });
-            const chatResponse = await response.json();
-            return chatResponse.response;
-        } catch (error) {
+    const fetchGptResponse = () => {
+        axios.post(`http://localhost:8000/chat`,
+            {game_id: gameId, query: query}, {
+            headers: {
+                'Authorization': `Bearer ${JWT}`,
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            setNewQuery({queryId: response.data.queryId, query: newQuery.query, response: response.data.response});
+        }).catch((error) => {
             console.error('Failed to fetch recent items:', error);
-        }
-        return "Error Response";
+        });
     };
 
     //submit event
     const handleSubmit = async (e) => {
+        e.preventDefault();
         const inputLength = query.length;
         if (!canSubmit || inputLength < 1 || inputLength > 200)
             return;
         setCanSubmit(false);
-        e.preventDefault();
-        const newQuery = {queryId:query , query: query, response: ""};
-        setQueries([...queries, newQuery]);  // 새 쿼리를 추가
+        setNewQuery({queryId: "dummyId", query: query, response: ""})
         setQuery("");  // 입력 필드 초기화
-        newQuery.response = await fetchGptResponse();
+        setQueries([...queries, newQuery])
+        await fetchGptResponse();
+        setQueries([...queries.slice(0, -1), newQuery]);
         setCanSubmit(true);
     };
 
@@ -80,11 +76,10 @@ function ChatPage({JWT, gameId }) {
         }
     };
 
-
     return (
         <div className="chat-container">
             <div className="quiz-problem">
-                {`riddle Id : ${gameInfo[0].gameTitle} | game Id : ${gameId} | problem : ${gameInfo[0].problem}`}
+                {`riddle Id : ${gameInfo.gameTitle} | game Id : ${gameId} | problem : ${gameInfo.problem}`}
             </div>
             <div className="chat-group">
                 <ChatWindow queries={queries} query={query}/>

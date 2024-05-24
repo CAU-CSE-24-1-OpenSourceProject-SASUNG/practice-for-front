@@ -69,8 +69,8 @@ function ChatPage({JWT, gameId }) {
         setQueries([...queries, dummyQuery]);
         const response = await fetchGptResponse();
         if (response) {
-            const updatedQuery = {...dummyQuery, queryId: response.queryId, response: response.response};
-            setQueries([...queries.slice(0, -1), updatedQuery]);
+            const updatedQuery = {query: newQueryText, queryId: response.queryId, response: response.response};
+            setQueries([...queries, updatedQuery]);
         }
         else
             alert("해당 게임의 모든 기회를 소진하셨습니다.");

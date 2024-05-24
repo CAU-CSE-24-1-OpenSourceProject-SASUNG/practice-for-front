@@ -80,7 +80,8 @@ const NewRiddlePage = ({ JWT }) => {
         }).then(response => {
              navigate('/main');
         }).catch(error => {
-             console.error('Failed to create new riddle:', error);
+            alert("새로운 수수께끼를 만들기 위한 수수께끼 티켓이 부족합니다!");
+            console.error('Failed to create new riddle:', error);
         });
     };
 

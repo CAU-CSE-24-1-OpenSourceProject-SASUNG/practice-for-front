@@ -33,7 +33,6 @@
     color: var(--main-lightgrey-color);
 }
 
-
 .progress-sentence{
     margin-right: 10px;
 }
@@ -66,12 +65,7 @@
     display: flex;
 }
 
-.qa-pair-groups{
-    display: flex;
-    flex-direction: row;
-}
-
-.new-input-group.qa-pairs .qa-pair {
+.new-input-group {
     gap: 10px;
     margin-bottom: 10px;
 }

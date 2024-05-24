@@ -77,13 +77,11 @@ const NewRiddlePage = ({ JWT }) => {
         };
         axios.post('http://localhost:8000/newriddle', newRiddle, {
             headers: { 'Authorization': `Bearer ${JWT}` }
-        })
-            .then(response => {
-                navigate('/main');
-            })
-            .catch(error => {
-                console.error('Failed to create new riddle:', error);
-            });
+        }).then(response => {
+             navigate('/main');
+        }).catch(error => {
+             console.error('Failed to create new riddle:', error);
+        });
     };
 
     return (

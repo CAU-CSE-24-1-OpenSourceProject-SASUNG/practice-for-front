@@ -9,7 +9,6 @@
     background-color: var(--sidebar-color); /* 사이드바 색상 */
     transition: width 0.5s;
     box-shadow: inset -5px 0px 4px -5px black;
-    overflow: hidden; /* 내부 콘텐츠에 스크롤을 제한 */
 }
 
 .sidebar.closed {
@@ -62,7 +61,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    height: calc(100% - 200px); /* MainButton height plus margin */
     overflow-y: auto; /* recent-content에 스크롤을 설정 */
+    box-shadow: inset -5px 0px 4px -5px black;
     background-color: var(--sidebar-color); /* 스크롤 영역 배경색 */
 }

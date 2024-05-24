@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import './ChatWindow.css';
 
-const ChatWindow = ({ queries = [] , query }) => {
+const ChatWindow = ({ queries}) => {
     const chatEndRef = useRef(null);
 
     useEffect(() => {
@@ -10,8 +10,8 @@ const ChatWindow = ({ queries = [] , query }) => {
 
     return (
         <div className="chat-window">
-            {queries.map((item) => (
-                <div className="message-group" key={item.queryId}>
+            {queries.map((item, index) => (
+                <div className="message-group" key={index}>
                     <div className="message user-message">{item.query}</div>
                     {item.response !== "" && (
                         <div className="message gpt-message">{item.response}</div>

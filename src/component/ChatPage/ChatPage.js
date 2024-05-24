@@ -10,7 +10,6 @@ function ChatPage({JWT, gameId }) {
             {gameTitle : 'dummy', problem : 'dummy problem'}
         ]
     );
-    const [newQuery, setNewQuery] = useState({queryId: "",query: "", response: ""});
     const [query, setQuery] = useState("");
     const [queries, setQueries] = useState([]);
     const [canSubmit, setCanSubmit] = useState(true);
@@ -34,37 +33,47 @@ function ChatPage({JWT, gameId }) {
         fetchGameInfo();
     }, [JWT, gameId]);
 
+
     //쿼리 set
     const handleInputChange = (e) => {
         setQuery(e.target.value);
     };
 
-    const fetchGptResponse = () => {
-        axios.post(`http://localhost:8000/chat`,
-            {game_id: gameId, query: query}, {
-            headers: {
-                'Authorization': `Bearer ${JWT}`,
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            setNewQuery({queryId: response.data.queryId, query: newQuery.query, response: response.data.response});
-        }).catch((error) => {
+    const fetchGptResponse = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8000/chat`,
+                { game_id: gameId, query: query }, {
+                    headers: {
+                        'Authorization': `Bearer ${JWT}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            return response.data;
+        } catch (error) {
             console.error('Failed to fetch recent items:', error);
-        });
+            return null;
+        }
     };
 
     //submit event
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setQuery("");  // 입력 필드 초기화
         const inputLength = query.length;
         if (!canSubmit || inputLength < 1 || inputLength > 200)
             return;
         setCanSubmit(false);
-        setNewQuery({queryId: "dummyId", query: query, response: ""})
-        setQuery("");  // 입력 필드 초기화
-        setQueries([...queries, newQuery])
-        await fetchGptResponse();
-        setQueries([...queries.slice(0, -1), newQuery]);
+        const newQueryText = query;  // query 값을 복사하여 새로운 변수에 저장
+        console.log(newQueryText);
+        const dummyQuery = { queryId: "dummyId", query: newQueryText, response: "" };
+        setQueries([...queries, dummyQuery]);
+        const response = await fetchGptResponse();
+        if (response) {
+            const updatedQuery = {...dummyQuery, queryId: response.queryId, response: response.response};
+            setQueries([...queries.slice(0, -1), updatedQuery]);
+        }
+        else
+            alert("해당 게임의 모든 기회를 소진하셨습니다.");
         setCanSubmit(true);
     };
 
@@ -79,7 +88,7 @@ function ChatPage({JWT, gameId }) {
     return (
         <div className="chat-container">
             <div className="quiz-problem">
-                {`riddle Id : ${gameInfo.gameTitle} | game Id : ${gameId} | problem : ${gameInfo.problem}`}
+                {`Problem : ${gameInfo.problem}`}
             </div>
             <div className="chat-group">
                 <ChatWindow queries={queries} query={query}/>

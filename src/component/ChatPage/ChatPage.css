@@ -1,10 +1,11 @@
 .quiz-problem {
-    padding: 2%;
+    padding: 20px;
     background-color: var(--main-point-base-color);
     margin-bottom: 20px;
-    color: var(--main-font-black-color);
+    color: var(--main-font-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
+    line-height: 1.6; /* 기본값은 1.5 */
 }
 
 .chat-container {

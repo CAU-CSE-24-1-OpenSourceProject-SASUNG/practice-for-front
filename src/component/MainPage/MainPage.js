@@ -7,33 +7,30 @@ import axios from "axios";
 
 function MainPage({ JWT, userInfo, setUserInfo, setGameId, riddles, setRiddles }) {
 
-    // TODO: 메인 페이지가 로드될 떄 userinfo가 fetch되도록.
+
     useEffect(() => {
-        axios.get('http://localhost:8000/user/info', {
+        axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
             headers: {
                 'Authorization': `Bearer ${JWT}`
             }
         }).then((response) => {
-            setUserInfo(response.data);
+            setUserInfo({...userInfo, riddleTicket: response.data.riddleTicket, gameTicket: response.data.gameTicket});
         }).catch((error) => {
             console.error("Fail to fetch userinfo : ", error);
         });
-    }, [JWT, setUserInfo]);
+    }, [JWT]);
 
     useEffect(() => {
         const fetchRiddleItems = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/riddle/list', {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${JWT}`
-                    }
-                });
-                const data = await response.json();
-                setRiddles(data);
-            } catch (error) {
+            axios.get(`${process.env.REACT_APP_API_URL}/riddle/list`, {
+                headers: {
+                    'Authorization': `Bearer ${JWT}`
+                }
+            }).then((response) => {
+                setRiddles(response.data);
+            }).catch ((error) => {
                 console.error('Failed to fetch recent items:', error);
-            }
+            })
         };
         fetchRiddleItems();
     }, [JWT, setRiddles]);

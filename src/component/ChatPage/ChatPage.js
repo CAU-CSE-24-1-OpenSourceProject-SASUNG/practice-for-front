@@ -17,7 +17,7 @@ function ChatPage({ JWT, gameId }) {
 
     useEffect(() => {
         const fetchGameInfo = async () => {
-            axios.get(`http://localhost:8000/game/info`, {
+            axios.get(`${process.env.REACT_APP_API_URL}/game/info`, {
                 params: { gameId: gameId },
                 headers: {
                     'Authorization': `Bearer ${JWT}`
@@ -40,7 +40,7 @@ function ChatPage({ JWT, gameId }) {
 
     const fetchGptResponse = async () => {
         try {
-            const response = await axios.post(`http://localhost:8000/chat`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat`,
                 { game_id: gameId, query: query }, {
                     headers: {
                         'Authorization': `Bearer ${JWT}`,

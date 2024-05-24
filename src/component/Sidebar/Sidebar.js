@@ -12,7 +12,7 @@ function Sidebar({ JWT, gameId, setGameId, isOpen, setIsOpen }) {
 
     useEffect(() => {
         const fetchRecentGames = () => {
-            axios.get('http://localhost:8000/game/list', {
+            axios.get(`${process.env.REACT_APP_API_URL}/game/list`, {
                 headers: {
                     Authorization: `Bearer ${JWT}`
                 }

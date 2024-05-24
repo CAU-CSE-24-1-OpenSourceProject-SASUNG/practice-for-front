@@ -51,7 +51,7 @@ const NewRiddlePage = ({ JWT }) => {
             answer: answer,
             progressSentences: progressSentences.filter(sentence => sentence.length > 0),
         };
-        axios.post('http://localhost:8000/riddle/new', newRiddle, {
+        axios.post(`${process.env.REACT_APP_API_URL}/riddle/new`, newRiddle, {
             headers: { 'Authorization': `Bearer ${JWT}` }
         }).then(response => {
              navigate('/main');

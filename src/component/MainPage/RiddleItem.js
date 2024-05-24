@@ -7,7 +7,7 @@ function RiddleItem({ JWT, setGameId, riddle }) {
     const navigate = useNavigate();
 
     const handleClick = async () => {
-        axios.post('http://localhost:8000/game/new', JSON.stringify({riddleId: riddle.riddleId}), {
+        axios.post(`${process.env.REACT_APP_API_URL}/game/new`, JSON.stringify({riddleId: riddle.riddleId}), {
             headers: {
                 'Authorization': `Bearer ${JWT}`,
                 'Content-Type': 'application/json'

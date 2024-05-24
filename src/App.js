@@ -25,6 +25,7 @@ function App() {
                         <GoogleLoginPage
                             setIsLogin={setIsLogin}
                             setUserInfo={setUserInfo}
+                            JWT={JWT}
                             setJWT={setJWT}
                         />
                     } />

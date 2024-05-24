@@ -15,7 +15,7 @@ function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [JWT, setJWT] = useState();
     const [userInfo, setUserInfo] = useState(
-        {name: "", email: "", picture: "", exp: 1});
+        {name: "", email: "", picture: "", exp: 1, gameTicket: 40, riddleTicket: 3});
 
     return (
         <Router>
@@ -43,6 +43,7 @@ function App() {
                                     <MainPage
                                         JWT={JWT}
                                         userInfo={userInfo}
+                                        setUserInfo={setUserInfo}
                                         setGameId={setGameId}
                                         riddles={riddles}
                                         setRiddles={setRiddles}

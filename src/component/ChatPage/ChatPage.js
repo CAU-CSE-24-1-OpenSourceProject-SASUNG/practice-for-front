@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './ChatPage.css';
 import Logo from '../../static/icon/logo.svg';
 import ChatWindow from "./ChatWindow";
 import axios from "axios";
+import ReactMarkdown from 'react-markdown';
 
-function ChatPage({JWT, gameId }) {
+function ChatPage({ JWT, gameId }) {
     const [gameInfo, setGameInfo] = useState(
         [
-            {gameTitle : 'dummy', problem : 'dummy problem'}
+            { gameTitle: 'dummy', problem: 'dummy problem' }
         ]
     );
     const [query, setQuery] = useState("");
@@ -33,8 +34,6 @@ function ChatPage({JWT, gameId }) {
         fetchGameInfo();
     }, [JWT, gameId]);
 
-
-    //쿼리 set
     const handleInputChange = (e) => {
         setQuery(e.target.value);
     };
@@ -55,21 +54,20 @@ function ChatPage({JWT, gameId }) {
         }
     };
 
-    //submit event
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setQuery("");  // 입력 필드 초기화
+        setQuery("");
         const inputLength = query.length;
         if (!canSubmit || inputLength < 1 || inputLength > 200)
             return;
         setCanSubmit(false);
-        const newQueryText = query;  // query 값을 복사하여 새로운 변수에 저장
+        const newQueryText = query;
         console.log(newQueryText);
         const dummyQuery = { queryId: "dummyId", query: newQueryText, response: "" };
         setQueries([...queries, dummyQuery]);
         const response = await fetchGptResponse();
         if (response) {
-            const updatedQuery = {query: newQueryText, queryId: response.queryId, response: response.response};
+            const updatedQuery = { query: newQueryText, queryId: response.queryId, response: response.response };
             setQueries([...queries, updatedQuery]);
         }
         else
@@ -77,7 +75,6 @@ function ChatPage({JWT, gameId }) {
         setCanSubmit(true);
     };
 
-    //enter submit
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
@@ -88,10 +85,10 @@ function ChatPage({JWT, gameId }) {
     return (
         <div className="chat-container">
             <div className="quiz-problem">
-                {`Problem : ${gameInfo.problem}`}
+                <ReactMarkdown>{gameInfo.problem}</ReactMarkdown>
             </div>
             <div className="chat-group">
-                <ChatWindow queries={queries} query={query}/>
+                <ChatWindow queries={queries} query={query} />
                 <div className="input-group">
                     <textarea
                         id="userQuestion"

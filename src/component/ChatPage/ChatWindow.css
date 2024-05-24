@@ -18,10 +18,13 @@
     background-color: var(--main-point-base-color);
     margin-left: auto;
 }
+
 .gpt-message {
+    display: flex;
     align-self: flex-start;
     background-color: var(--main-bg-color);
     margin-right: auto;
+    align-items: center;
 }
 .message {
     padding: 10px;
@@ -33,4 +36,20 @@
     white-space: pre-wrap;
     overflow-wrap: break-word;
     max-width: 50%;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 4px solid var(--main-bg-color);
+    border-bottom-color: var(--main-point-base-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

@@ -29,7 +29,8 @@ export const GoogleLoginPage = ({ setIsLogin, setUserInfo, setJWT }) => {
             }
             const fetchedDataJson = await fetchedData.json();
             setJWT(fetchedDataJson.access_token);
-            setUserInfo({ name: data.name, email: data.email, picture: decode_token.picture, exp: 4 });
+            //TODO : 유저 정보 받아서 여기서 초기화 하기
+            setUserInfo({ name: data.name, email: data.email, picture: decode_token.picture, exp: 4, gameTicket: 40, riddleTicket: 3 });
             setIsLogin(true);
             navigate('/main'); // 로그인 성공 시 /main으로 네비게이트
         } catch (error) {

@@ -3,13 +3,27 @@ import UserInfo from './UserInfo';
 import RecentButton from './RecentButton';
 import RiddleList from './RiddleList';
 import './MainPage.css';
+import axios from "axios";
 
-function MainPage({ JWT, userInfo, setGameId, riddles, setRiddles }) {
+function MainPage({ JWT, userInfo, setUserInfo, setGameId, riddles, setRiddles }) {
+
+    // TODO: 메인 페이지가 로드될 떄 userinfo가 fetch되도록.
+    useEffect(() => {
+        axios.get('http://localhost:8000/user/info', {
+            headers: {
+                'Authorization': `Bearer ${JWT}`
+            }
+        }).then((response) => {
+            setUserInfo(response.data);
+        }).catch((error) => {
+            console.error("Fail to fetch userinfo : ", error);
+        });
+    }, [JWT, setUserInfo]);
 
     useEffect(() => {
         const fetchRiddleItems = async () => {
             try {
-                const response = await fetch('http://localhost:8000/riddles', {
+                const response = await fetch('http://localhost:8000/riddle/list', {
                     method: "GET",
                     headers: {
                         'Authorization': `Bearer ${JWT}`

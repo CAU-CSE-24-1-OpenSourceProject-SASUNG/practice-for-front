@@ -75,7 +75,7 @@ const NewRiddlePage = ({ JWT }) => {
                 exResponse: pair.answer
             }))
         };
-        axios.post('http://localhost:8000/newriddle', newRiddle, {
+        axios.post('http://localhost:8000/riddle/new', newRiddle, {
             headers: { 'Authorization': `Bearer ${JWT}` }
         }).then(response => {
              navigate('/main');

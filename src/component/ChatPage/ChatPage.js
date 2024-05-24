@@ -16,7 +16,7 @@ function ChatPage({JWT, gameId }) {
 
     useEffect(() => {
         const fetchGameInfo = async () => {
-            axios.get(`http://localhost:8000/gameinfo`, {
+            axios.get(`http://localhost:8000/game/info`, {
                 params: { gameId: gameId },
                 headers: {
                     'Authorization': `Bearer ${JWT}`

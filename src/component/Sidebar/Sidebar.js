@@ -12,17 +12,15 @@ function Sidebar({ JWT, gameId, setGameId, isOpen, setIsOpen }) {
 
     useEffect(() => {
         const fetchRecentGames = () => {
-            axios.get('http://localhost:8000/recentgames', {
+            axios.get('http://localhost:8000/game/list', {
                 headers: {
                     Authorization: `Bearer ${JWT}`
                 }
-            })
-                .then(response => {
-                    setRecentGames(response.data);
-                })
-                .catch(error => {
-                    console.error('Failed to fetch recent items:', error);
-                });
+            }).then(response => {
+                setRecentGames(response.data);
+            }).catch(error => {
+                console.error('Failed to fetch recent items:', error);
+            });
         };
         fetchRecentGames();
     }, [JWT, gameId]);
